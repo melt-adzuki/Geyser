@@ -105,8 +105,8 @@ sourceSets {
     }
 }
 
-fun isDevBuild(branch: String, repository: String): Boolean {
-    return branch != "master" || repository.equals("https://github.com/GeyserMC/Geyser", ignoreCase = true).not()
+fun isDevBuild(branch: String): Boolean {
+    return branch != "master"
 }
 
 inner class GitInfo {
@@ -137,7 +137,7 @@ inner class GitInfo {
         repository = git?.repository?.config?.getString("remote", "origin", "url") ?: ""
 
         buildNumber = buildNumber()
-        isDev = isDevBuild(branch, repository)
+        isDev = isDevBuild(branch)
         val projectVersion = if (isDev) project.version else projectVersion(project)
         version = "$projectVersion ($gitVersion)"
     }
