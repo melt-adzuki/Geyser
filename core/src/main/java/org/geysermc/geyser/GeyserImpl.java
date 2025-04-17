@@ -574,19 +574,9 @@ public class GeyserImpl implements GeyserApi, EventRegistrar {
                     logger.error("Cannot load saved user tokens!", e);
                 }
                 if (authChainFile != null) {
-                    List<String> validUsers = config.getSavedUserLogins();
-                    boolean doWrite = false;
                     for (Map.Entry<String, String> entry : authChainFile.entrySet()) {
                         String user = entry.getKey();
-                        if (!validUsers.contains(user)) {
-                            // Perform a write to this file to purge the now-unused name
-                            doWrite = true;
-                            continue;
-                        }
                         savedAuthChains.put(user, entry.getValue());
-                    }
-                    if (doWrite) {
-                        scheduleAuthChainsWrite();
                     }
                 }
             }
@@ -845,7 +835,7 @@ public class GeyserImpl implements GeyserApi, EventRegistrar {
     }
 
     public void saveAuthChain(@NonNull String bedrockName, @NonNull String authChain) {
-        if (!getConfig().getSavedUserLogins().contains(bedrockName)) {
+        if (!getConfig().isSaveUserLogins()) {
             // Do not save this login
             return;
         }

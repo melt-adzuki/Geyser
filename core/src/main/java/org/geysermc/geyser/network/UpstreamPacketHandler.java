@@ -255,7 +255,7 @@ public class UpstreamPacketHandler extends LoggingPacketHandler {
     }
 
     private boolean couldLoginUserByName(String bedrockUsername) {
-        if (geyser.getConfig().getSavedUserLogins().contains(bedrockUsername)) {
+        if (geyser.getConfig().isSaveUserLogins()) {
             String authChain = geyser.authChainFor(bedrockUsername);
             if (authChain != null) {
                 geyser.getLogger().info(GeyserLocale.getLocaleStringLog("geyser.auth.stored_credentials", session.getAuthData().name()));

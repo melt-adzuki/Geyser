@@ -50,7 +50,7 @@ public interface GeyserConfiguration {
 
     IRemoteConfiguration getRemote();
 
-    List<String> getSavedUserLogins();
+    boolean isSaveUserLogins();
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     boolean isCommandSuggestions();
